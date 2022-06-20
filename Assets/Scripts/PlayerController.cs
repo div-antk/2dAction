@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         // スペースキーが押された際、かつ落下中ではないときにJump関数を呼ぶ
         if (Input.GetKeyDown(KeyCode.Space) && !(rb.velocity.y < -0.5f)) {
-            Jump()
+            Jump();
         }
 
         // プレイヤーを移動させる処理
