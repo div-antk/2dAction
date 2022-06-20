@@ -13,17 +13,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int moveSpeed;
     [SerializeField] private int jumpForce;
 
+    private bool isJumping = false;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         // スペースキーが押された際、かつ落下中ではないときにJump関数を呼ぶ
-        if (Input.GetKeyDown(KeyCode.Space) && !(rb.velocity.y < -0.5f)) {
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !(rb.velocity.y < -0.5f)) {
             Jump();
         }
 
@@ -32,6 +33,15 @@ public class PlayerController : MonoBehaviour
     }
 
     void Jump() {
+        isJumping = true;
+
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    }
+
+    // 着地した情報を取得
+    void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("Stage")) {
+            isJumping = false;
+        }
     }
 }
