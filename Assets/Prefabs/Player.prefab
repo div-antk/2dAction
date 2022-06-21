@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5490721903316063723}
   - component: {fileID: 9070338155386390413}
   - component: {fileID: -8005004235752139319}
+  - component: {fileID: 1258158518321505294}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -160,3 +161,19 @@ MonoBehaviour:
   rb: {fileID: -5490721903316063723}
   moveSpeed: 3
   jumpForce: 7
+--- !u!70 &1258158518321505294
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157673628476247580}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.315}
+  m_Size: {x: 0.39, y: 0.1}
+  m_Direction: 0
