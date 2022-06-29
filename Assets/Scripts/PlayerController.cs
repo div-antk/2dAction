@@ -5,31 +5,38 @@ using UnityEngine;
 // 必要なコンポーネントを定義
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Animator))]
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Animator animator;
 
     [SerializeField] private int moveSpeed;
     [SerializeField] private int jumpForce;
 
+    private bool isMoving = false;
     private bool isJumping = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool isFalling = false;
 
     void Update()
     {
+        float horizontal = Input.GetAxis("Horizontal");
+
+        isMoving = horizontal != 0;
+        isFalling = rb.velocity.y < -0.5f;
+
         // スペースキーが押された際、かつ落下中ではないときにJump関数を呼ぶ
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !(rb.velocity.y < -0.5f)) {
+        if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !isFalling) {
             Jump();
         }
 
         // プレイヤーを移動させる処理
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
+
+        animator.SetBool("IsMoving", isMoving);
+        animator.SetBool("IsJumping", isJumping);
+        animator.SetBool("IsFalling", isFalling);
     }
 
     void Jump() {
