@@ -26,10 +26,22 @@ public class PlayerController : MonoBehaviour
         isMoving = horizontal != 0;
         isFalling = rb.velocity.y < -0.5f;
 
+        // 移動中かどうかの判定
+        if (isMoving) {
+            Vector3 scale = gameObject.transform.localScale;
+
+            // 向きの反転処理
+            if(horizontal < 0 && scale.x > 0 || horizontal > 0 && scale.x < 0) {
+                scale.x *= -1;
+            }
+            gameObject.transform.localScale = scale;
+        }
+
         // スペースキーが押された際、かつ落下中ではないときにJump関数を呼ぶ
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping && !isFalling) {
             Jump();
         }
+
 
         // プレイヤーを移動させる処理
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, rb.velocity.y);
